@@ -1,51 +1,5 @@
 'use strict';
-
-// var slideIndex = 1;
-// showSlides(slideIndex);
-
-// Next/previous controls
-// function plusSlides(n) {
-//   showSlides(slideIndex += n);
-// }
-
-// Thumbnail image controls
-// function currentSlide(n) {
-//   showSlides(slideIndex = n);
-// }
-
-// function showSlides(n) {
-//   var i;
-//   var slides = document.getElementsByClassName("mySlides");
-//   var dots = document.getElementsByClassName("dot");
-//   if (n > slides.length) {slideIndex = 1}
-//   if (n < 1) {slideIndex = slides.length}
-//   for (i = 0; i < slides.length; i++) {
-//       slides[i].style.display = "none";
-//   }
-//   for (i = 0; i < dots.length; i++) {
-//       dots[i].className = dots[i].className.replace(" active", "");
-//   }
-//   slides[slideIndex-1].style.display = "block";
-//   dots[slideIndex-1].className += " active";
-// }
-
-// var slideIndex = 0;
-// showSlides();
-
-// function showSlides() {
-//   var i;
-//   var slides = document.getElementsByClassName("mySlides");
-//   for (i = 0; i < slides.length; i++) {
-//     slides[i].style.display = "none";
-//   }
-//   slideIndex++;
-//   if (slideIndex > slides.length) {slideIndex = 1}
-//   slides[slideIndex-1].style.display = "block";
-//   setTimeout(showSlides, 2000); // Change image every 2 seconds
-// }
-
-
-// 
+ 
 var slideIndex = 1;
 showSlides(slideIndex);
 
@@ -73,11 +27,40 @@ function showSlides(n) {
   dots[slideIndex-1].className += " active";
 }
 
+let Images = ['german poppy.jpg', 'german.jpg', 'Golda-Puppy.jpg', 'haski.jpg', 'Pomeranian-puppies.jpg', 'rot baby.jpg', 'rottweiler-puppy.jpg'];
 
-// main
-// $('.buy').click(function(){
-//     $('.bottom').addClass("clicked");
-//   });
-//   $('.remove').click(function(){
-//     $('.bottom').removeClass("clicked");
-//   });
+
+
+var cart = new Cart([]);
+function populateForm() {
+
+  const selectElement = document.getElementById('pets');
+  for (let i in Pet.allPet) {
+    let El = document.createElement("option");
+
+    let option = Pet.allPet[i].name;
+    El.textContent = option;
+    El.value = option;
+    selectElement.appendChild(El);
+  }
+
+}
+
+function handleSubmit(event) {
+
+  event.preventDefault();
+  addSelectedItemToCart();
+  cart.saveToLocalStorage();
+  updateCounter();
+  updateCartPreview();
+
+}
+
+function addSelectedItemToCart() {
+
+  let pets = document.getElementById('pets').value;
+
+  let quantity = document.getElementById('quantity').value;
+ 
+  cart.addItem(pets, quantity)
+}
